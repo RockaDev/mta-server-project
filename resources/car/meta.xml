@@ -1,0 +1,7 @@
+<meta>
+    <script src="vehicle.lua" type="client"/>
+    <file src="models/elegy.txd" />
+    <file src="models/elegy.dff" />
+    <file src="models/infernus.txd" />
+    <file src="models/infernus.dff" />
+</meta>
