@@ -1,117 +1,94 @@
-function createLoginWindow()
-	local X = 0.375
-	local Y = 0.375
-	local Width = 0.25
-	local Height = 0.5
-	wdwLogin = guiCreateWindow(X, Y-0.1, Width, Height, "Please Log In", true)
-    local tabPanel = guiCreateTabPanel ( 0, 0.08, 1, 1, true, wdwLogin )
-    local tabLogin = guiCreateTab("Login",tabPanel)
-    local tabRegister = guiCreateTab("Register",tabPanel)
-	
-	X = 0.0825
-	Y = 0.2
-
-	Width = 0.25
-	Height = 0.25
-
-	guiCreateLabel(X, Y, Width, Height, "Username", true, tabLogin)
-
-    guiCreateLabel(X, Y, Width, Height, "Username", true, tabRegister)
-
-	Y = 0.5
-	guiCreateLabel(X, Y, Width, Height, "Password", true, tabLogin)
-
-    guiCreateLabel(X, Y+0.05, Width, Height, "Confirm pass.", true, tabRegister)
-    guiCreateLabel(X, Y-0.10, Width, Height, "Password", true, tabRegister)
-	
-
-	X = 0.415
-	Y = 0.2
-	Width = 0.5
-	Height = 0.15
-	edtUser = guiCreateEdit(X, Y, Width, Height, "", true, tabLogin)
-    edtUserReg = guiCreateEdit(X, Y, Width, Height, "", true, tabRegister)
-	Y = 0.5
-	edtPass = guiCreateEdit(X, Y, Width, Height, "", true, tabLogin)
-    edtUserReg = guiCreateEdit(X, Y, Width, 0.17, "", true, tabRegister)
-    edtUserConfirm = guiCreateEdit(X, 0.38, Width, 0.09, "", true, tabRegister)
-
-	guiEditSetMaxLength(edtUser, 50)
-	guiEditSetMaxLength(edtPass, 50)
-	
-	X = 0.415
-	Y = 0.7
-	Width = 0.25
-	Height = 0.2
-	btnLogin = guiCreateButton(X, Y, Width, Height, "Log In", true, tabLogin)
-    btnReg = guiCreateButton(X, Y, Width, Height, "Register", true, tabRegister)
-    addEventHandler("onClientGUIClick", btnLogin, clientSubmitLogin, false)
-	guiSetVisible(wdwLogin, false)
-
-end
-
-addEventHandler("onClientResourceStart", getResourceRootElement(), 
-	function ()
-		createLoginWindow()
-	end
-)
-addEventHandler("onPlayerJoin",root,function ()
-    createLoginWindow()
-end)
-
-addEventHandler("onClientResourceStart", getResourceRootElement(), 
-	function ()
-		createLoginWindow()
-
-                outputChatBox("Welcome to My MTA:SA Server, please log in.")
-
-	        if (wdwLogin ~= nil) then
-			guiSetVisible(wdwLogin, true)
-		else
-			outputChatBox("An unexpected error has occurred. Please reconnect.")
-	        end 
-
-	        showCursor(true)
-	        guiSetInputEnabled(true)
-	end
+GUIEditor = {
+    progressbar = {},
+    edit = {},
+    button = {},
+    window = {},
+    label = {},
+    staticimage = {}
+}
+addEventHandler("onClientResourceStart", resourceRoot,
+    function()
+        toggleControl("chatbox", false) 
+        local x, y = guiGetScreenSize () 
+        local guiWidth, guiHeight = 500, 400 
+          
+        local centerX, centerY = (x / 2) - (guiWidth / 2), (y / 2) - (guiHeight / 2)         
+        showCursor(true)
+        LoginPanelWindow = guiCreateWindow(centerX, centerY, 654, 457, "Login Panel - Rocka's Test Sever", false)
+        guiWindowSetSizable(LoginPanelWindow, false)
+        GUIEditor.label[1] = guiCreateLabel(52, 47, 58, 18, "Username", false, LoginPanelWindow)
+        loginUsername = guiCreateEdit(124, 46, 114, 19, "", false, LoginPanelWindow)
+        GUIEditor.label[2] = guiCreateLabel(52, 85, 53, 15, "Password", false, LoginPanelWindow)
+        loginPassword = guiCreateEdit(124, 80, 114, 20, "", false, LoginPanelWindow)
+        GUIEditor.label[3] = guiCreateLabel(394, 46, 58, 18, "Username", false, LoginPanelWindow)
+        RegisterUsername = guiCreateEdit(483, 45, 114, 19, "", false, LoginPanelWindow)
+        GUIEditor.label[4] = guiCreateLabel(394, 85, 53, 15, "Password", false, LoginPanelWindow)
+        RegisterPassword = guiCreateEdit(483, 85, 114, 20, "", false, LoginPanelWindow)
+        GUIEditor.label[5] = guiCreateLabel(374, 128, 99, 15, "Confirm Password", false, LoginPanelWindow)
+        RegisterPasswordConfirm = guiCreateEdit(483, 123, 114, 20, "", false, LoginPanelWindow)
+        btnreg = guiCreateButton(484, 181, 113, 43, "Register", false, LoginPanelWindow)
+        addEventHandler("onClientGUIClick", btnreg, RegisterAcc, false)
+        guiSetProperty(GUIEditor.button[1], "NormalTextColour", "FF89FD00")
+        btnlog = guiCreateButton(124, 139, 113, 43, "Login", false, LoginPanelWindow)
+        addEventHandler("onClientGUIClick", btnlog, LoginEvent, false)
+        guiSetProperty(GUIEditor.button[2], "NormalTextColour", "FFFEFB00")
+        GUIEditor.label[6] = guiCreateLabel(289, 3, 95, 15, "", false, LoginPanelWindow)
+        GUIEditor.staticimage[1] = guiCreateStaticImage(10, 230, 227, 210, "logo.png", false, LoginPanelWindow)
+        progbar = guiCreateProgressBar(296, 417, 297, 20, false, LoginPanelWindow)
+        labelOnPanel = guiCreateLabel(257, 351, 362, 56, "Rocka's Test Server", false, LoginPanelWindow)
+        guiEditSetMasked ( loginPassword, true )
+        guiEditSetMasked ( RegisterPassword, true )
+        guiEditSetMasked ( RegisterPasswordConfirm, true )
+        guiLabelSetColor ( GUIEditor.label[1], 0,255,111)
+        guiLabelSetColor ( GUIEditor.label[2], 0,255,111)
+        guiLabelSetColor ( GUIEditor.label[3], 255,213,0)
+        guiLabelSetColor ( GUIEditor.label[4], 255,213,0)
+        guiLabelSetColor ( GUIEditor.label[5], 255,213,0)
+        guiSetFont(labelOnPanel, "sa-header")
+        guiLabelSetColor ( labelOnPanel, 153,153,255)
+        guiLabelSetColor(GUIEditor.label[7], 6, 220, 246)    
+        guiProgressBarSetProgress(progbar, 100)
+    end
 )
 
 
-
-function clientSubmitLogin(button,state)
-	if button == "left" and state == "up" then
-		local username = guiGetText(edtUser)
-		local password = guiGetText(edtPass)
-
-		if username and username ~= "" and password and password ~= "" then
-			triggerServerEvent("submitLogin", getRootElement(), username, password)
-
-			guiSetInputEnabled(false)
-			guiSetVisible(wdwLogin, false)
-			showCursor(false)
-
-		else
-
-			outputChatBox("Please enter a username and password.")
-		end
-	end
+function LoginEvent()
+    local login_username = guiGetText(loginUsername)
+    local login_password = guiGetText(loginPassword)
+    triggerServerEvent("triggeredLogin",localPlayer,login_username,login_password)
 end
 
-function loginHandler(username,password)
-	-- check that the username and password are correct
-	if username == "user" and password == "apple" then
-		-- the player has successfully logged in, so spawn them
-		if (client) then
-			spawnPlayer(client, 1959.55, -1714.46, 10)
-			fadeCamera(client, true)
-                        setCameraTarget(client, client)
-			outputChatBox("Welcome to My Server.", client)
-		end
-	else
-		-- if the username or password are not correct, output a message to the player
-		outputChatBox("Invalid username and password. Please re-connect and try again.",client)
-        end			
+function RegisterAcc()
+    local player_username = guiGetText(RegisterUsername)
+    local player_password = guiGetText(RegisterPassword)
+    local player_password_confirm = guiGetText(RegisterPasswordConfirm)
+    if player_password == player_password_confirm then
+        if #player_username < 6 then
+            outputChatBox("Meno musí obsahovať viac ako 6 znakov!",255,0,0,true)
+        elseif #player_password < 8 then
+            outputChatBox("Heslo musí obsahovať viac ako 8 znakov!",255,0,0,true)
+        else
+            triggerServerEvent("AddAccountToDB",localPlayer,player_username,player_password,player_password_confirm)
+        end
+
+    else
+        outputChatBox("Heslá sa nerovnajú!",255,0,0,true)
+end
 end
 
-addEvent("submitLogin",true)
-addEventHandler("submitLogin",root,loginHandler)
+local dxWidth,dxHeight = guiGetScreenSize()
+
+function background()
+    local bgChange = dxDrawImage(0,0, dxWidth, dxHeight, "bg.jpg", 0, 0, 0, tocolor(255, 255, 255, 255), false)
+end
+addEventHandler("onClientRender",root,background)
+
+function LoginSuccess()
+    guiSetVisible(LoginPanelWindow,false)
+    showCursor(false)
+    toggleControl("chatbox", true) 
+    removeEventHandler("onClientRender", root, background)
+end
+addEvent("TurnOffGUI",true)
+addEventHandler("TurnOffGUI",getRootElement(),LoginSuccess)
+

@@ -1,3 +1,5 @@
 <meta>
     <script src="login.lua" type="client"/>
+    <file src="logo.png"/>
+    <file src="bg.jpg"/> 
 </meta>
