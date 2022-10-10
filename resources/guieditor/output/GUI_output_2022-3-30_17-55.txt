@@ -1,0 +1,43 @@
+--[[-------------------------------------------------
+Notes:
+
+> This code is using a relative image filepath. This will only work as long as the location it is from always exists, and the resource it is part of is running.
+    To ensure it does not break, it is highly encouraged to move images into your local resource and reference them there.
+--]]-------------------------------------------------
+
+
+GUIEditor = {
+    progressbar = {},
+    edit = {},
+    button = {},
+    window = {},
+    label = {},
+    staticimage = {}
+}
+addEventHandler("onClientResourceStart", resourceRoot,
+    function()
+        GUIEditor.window[1] = guiCreateWindow(358, 137, 654, 457, "Login Panel - Rocka's Test Sever", false)
+        guiWindowSetSizable(GUIEditor.window[1], false)
+
+        GUIEditor.label[1] = guiCreateLabel(52, 47, 58, 18, "Username", false, GUIEditor.window[1])
+        GUIEditor.edit[1] = guiCreateEdit(124, 46, 114, 19, "", false, GUIEditor.window[1])
+        GUIEditor.label[2] = guiCreateLabel(52, 85, 53, 15, "Password", false, GUIEditor.window[1])
+        GUIEditor.edit[2] = guiCreateEdit(124, 80, 114, 20, "", false, GUIEditor.window[1])
+        GUIEditor.label[3] = guiCreateLabel(394, 46, 58, 18, "Username", false, GUIEditor.window[1])
+        GUIEditor.edit[3] = guiCreateEdit(483, 45, 114, 19, "", false, GUIEditor.window[1])
+        GUIEditor.label[4] = guiCreateLabel(394, 85, 53, 15, "Password", false, GUIEditor.window[1])
+        GUIEditor.edit[4] = guiCreateEdit(483, 85, 114, 20, "", false, GUIEditor.window[1])
+        GUIEditor.label[5] = guiCreateLabel(374, 128, 99, 15, "Confirm Password", false, GUIEditor.window[1])
+        GUIEditor.edit[5] = guiCreateEdit(483, 123, 114, 20, "", false, GUIEditor.window[1])
+        GUIEditor.button[1] = guiCreateButton(484, 181, 113, 43, "Register", false, GUIEditor.window[1])
+        guiSetProperty(GUIEditor.button[1], "NormalTextColour", "FF89FD00")
+        GUIEditor.button[2] = guiCreateButton(124, 139, 113, 43, "Login", false, GUIEditor.window[1])
+        guiSetProperty(GUIEditor.button[2], "NormalTextColour", "FFFEFB00")
+        GUIEditor.label[6] = guiCreateLabel(289, 3, 95, 15, "", false, GUIEditor.window[1])
+        GUIEditor.staticimage[1] = guiCreateStaticImage(10, 285, 227, 158, ":guieditor/images/examples/mtalogo.png", false, GUIEditor.window[1])
+        GUIEditor.progressbar[1] = guiCreateProgressBar(296, 417, 297, 20, false, GUIEditor.window[1])
+        GUIEditor.label[7] = guiCreateLabel(257, 351, 362, 56, "Rocka's Test Server", false, GUIEditor.window[1])
+        guiSetFont(GUIEditor.label[7], "sa-header")
+        guiLabelSetColor(GUIEditor.label[7], 6, 220, 246)    
+    end
+)

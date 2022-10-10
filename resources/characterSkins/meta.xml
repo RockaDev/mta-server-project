@@ -1,0 +1,7 @@
+<meta>
+    <script src="skins.lua" type="client"/>
+    <file src="model/ballas2.txd" />
+    <file src="model/ballas2.dff" />
+    <file src="model/MALE.txd" />
+    <file src="model/MALE.dff" />
+</meta>
