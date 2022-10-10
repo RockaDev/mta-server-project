@@ -1,0 +1,6 @@
+<meta>
+    <script src="botsC.lua" type="client"/>
+    <script src="botsS.lua" type="server"/>
+    <export function="spawnBot" type="client" />
+    <export function="spawnBot" type="server" />
+</meta>
